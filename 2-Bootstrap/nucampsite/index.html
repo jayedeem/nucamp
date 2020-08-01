@@ -142,8 +142,9 @@
                 <form id='reserveForm'>
                     <div class="row form-group">
                       <label for="numCampers" class="col-sm-6 col-form-label">Number of Campers</label>
-                      <select name="numCampers" id="numCampers" class="col form-control">
-                          <option value="">Select...</option>
+                      <div class="col">
+                        <select name="numCampers" id="numCampers" class="form-control">
+                          <option selected>Select...</option>
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
@@ -151,10 +152,13 @@
                           <option value="5">5</option>
                           <option value="6">6</option>
                       </select>
+                      </div>
                     </div>
                     <div class="row form-group">
                         <label for="date" class='col-sm-6 col-form-label'>Date</label>
-                        <input class='col form-control' type="date" id="date" name="date" placeholder="mm/dd/yyyy">
+                      <div class="col">
+                        <input class='form-control' type="date" id="date" name="date" placeholder="mm/dd/yyyy">
+                      </div>
                     </div>
                     <div class="row form-group">
                       <div class="col">
@@ -217,6 +221,7 @@
           </div>
         </div>
       </div>
+
     </footer>
     <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
     <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
