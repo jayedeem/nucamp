@@ -2,7 +2,7 @@
   "name": "2-Bootstrap",
   "version": "1.0.0",
   "description": "This is a website for the fictional campsites review site NuCamp.",
-  "main": "index.html",
+  "main": "newIndex.html",
   "scripts": {
     "lite": "lite-server",
     "start": "npm run lite",
