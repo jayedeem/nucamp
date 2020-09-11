@@ -4,7 +4,6 @@ import { Card, CardBody, CardImg, CardText, CardTitle } from 'reactstrap';
 const CampsiteInfoComponent = ({ campsite }) => {
   const renderComments = (comments) => {
     if (comments) {
-      console.log(comments);
       return (
         <div className="col-md-5 m-1">
           <h4>Comments</h4>
