@@ -1,40 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
-import CampsiteInfo from './CampsiteInfoComponent';
 
-const DirectoryComponent = ({ campsites }) => {
-  const [selectedCampsites, setselectedCampsites] = useState(null);
-  const onCampsiteSelect = (campsite) => {
-    setselectedCampsites(campsite);
-  };
+function RenderDirectoryItem({ campsite }) {
+  return (
+    <Card>
+      <CardImg width="100%" src={campsite.image} alt={campsite.name} />
+      <CardImgOverlay>
+        <CardTitle>{campsite.name}</CardTitle>
+      </CardImgOverlay>
+    </Card>
+  );
+}
+
+function Directory({ campsites }) {
   const directory = campsites.map((campsite) => {
     return (
-      <div className="col-md-5 m-1" key={campsite.id}>
-        <Card onClick={() => onCampsiteSelect(campsite)}>
-          <CardImg width="100%" src={campsite.image} alt={campsite.name} />
-          <CardImgOverlay>
-            <CardTitle>{campsite.name}</CardTitle>
-          </CardImgOverlay>
-        </Card>
+      <div key={campsite.id} className="col-md-5 m-1">
+        <RenderDirectoryItem campsite={campsite} />
       </div>
     );
   });
+
   return (
     <div className="container">
       <div className="row">{directory}</div>
-      <CampsiteInfo campsite={selectedCampsites} />
     </div>
   );
-};
+}
 
 // class DirectoryComponent extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       selectedCampSites: null,
-//     };
-//   }
-
 //   oncampSiteSelect(campsite) {
 //     this.setState({
 //       selectedCampSites: campsite,
@@ -42,13 +36,12 @@ const DirectoryComponent = ({ campsites }) => {
 //   }
 
 //   render() {
-//     const { campsites } = this.props;
-//     const { selectedCampSites } = this.state;
+//     const { campsites, onClick } = this.props;
 
 //     const directory = campsites.map((campsite) => {
 //       return (
 //         <div className="col-md-5 m-1" key={campsite.id}>
-//           <Card onClick={() => this.oncampSiteSelect(campsite)}>
+//           <Card onClick={() => onClick(campsite.id)}>
 //             <CardImg width="100%" src={campsite.image} alt={campsite.name} />
 //             <CardImgOverlay>
 //               <CardTitle>{campsite.name}</CardTitle>
@@ -60,9 +53,8 @@ const DirectoryComponent = ({ campsites }) => {
 //     return (
 //       <div className="container">
 //         <div className="row">{directory}</div>
-//         <CampsiteInfo campsite={selectedCampSites} />
 //       </div>
 //     );
 //   }
 // }
-export default DirectoryComponent;
+export default Directory;

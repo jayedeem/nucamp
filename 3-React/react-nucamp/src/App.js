@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import { Navbar, NavbarBrand } from 'reactstrap';
-import DirectoryComponent from './components/DirectoryComponent';
-import { CAMPSITES } from './shared/campsites';
+import { BrowserRouter } from 'react-router-dom';
+import Main from './components/MainComponent';
 
 function App() {
-  const [campsite, setcampsite] = useState(CAMPSITES);
   return (
-    <div className="App">
-      <Navbar dark color="primary">
-        <div className="container">
-          <NavbarBrand href="/">NuCamp</NavbarBrand>
-        </div>
-      </Navbar>
-      <DirectoryComponent campsites={campsite} />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Main />
+      </div>
+    </BrowserRouter>
   );
 }
 

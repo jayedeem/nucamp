@@ -8,15 +8,17 @@ const CampsiteInfoComponent = ({ campsite }) => {
         <div className="col-md-5 m-1">
           <h4>Comments</h4>
           {comments.map((comment) => (
-            <p key={comment.id}>
-              {comment.text} <br />
-              -- {comment.author},{' '}
-              {new Intl.DateTimeFormat('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: '2-digit',
-              }).format(new Date(Date.parse(comment.date)))}
-            </p>
+            <div key={comment.id}>
+              <p>
+                {comment.text} <br />
+                -- {comment.author},{' '}
+                {new Intl.DateTimeFormat('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: '2-digit',
+                }).format(new Date(Date.parse(comment.date)))}
+              </p>
+            </div>
           ))}
         </div>
       );
@@ -41,9 +43,11 @@ const CampsiteInfoComponent = ({ campsite }) => {
   return (
     <div>
       {campsite ? (
-        <div className="row">
-          {renderCampsite(campsite)}
-          {renderComments(campsite.comments)}
+        <div className="container">
+          <div className="row">
+            {renderCampsite(campsite)}
+            {renderComments(campsite.comments)}
+          </div>
         </div>
       ) : (
         <div></div>
@@ -55,7 +59,6 @@ const CampsiteInfoComponent = ({ campsite }) => {
 // class CampsiteInfoComponent extends Component {
 //   renderComments(comments) {
 //     if (comments) {
-//       console.log(comments);
 //       return (
 //         <div className="col-md-5 m-1">
 //           <h4>Comments</h4>
@@ -92,12 +95,15 @@ const CampsiteInfoComponent = ({ campsite }) => {
 
 //   render() {
 //     const { campsite } = this.props;
+//     const { renderCampsite, renderComments } = this;
 //     return (
 //       <div>
-//         {this.props.campsite ? (
-//           <div className="row">
-//             {this.renderCampsite(campsite)}
-//             {this.renderComments(campsite.comments)}
+//         {campsite ? (
+//           <div className="container">
+//             <div className="row">
+//               {renderCampsite(campsite)}
+//               {renderComments(campsite.comments)}
+//             </div>
 //           </div>
 //         ) : (
 //           <div></div>
