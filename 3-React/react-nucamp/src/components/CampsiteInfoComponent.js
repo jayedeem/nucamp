@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardImg, CardText, CardTitle } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import {
+  Card,
+  CardBody,
+  CardImg,
+  CardText,
+  CardTitle,
+  Breadcrumb,
+  BreadcrumbItem,
+} from 'reactstrap';
 
-const CampsiteInfoComponent = ({ campsite }) => {
-  const renderComments = (comments) => {
+const CampsiteInfoComponent = ({ campsite, comments }) => {
+  const RenderComments = (comments) => {
     if (comments) {
       return (
         <div className="col-md-5 m-1">
@@ -26,13 +35,13 @@ const CampsiteInfoComponent = ({ campsite }) => {
     return <div></div>;
   };
 
-  const renderCampsite = (campsite) => {
+  const RenderCampsite = (campsite) => {
     return (
       <div className="col-md-5 m-1">
         <Card>
           <CardBody>
-            <CardImg top src={campsite.image} alt={campsite.name} />
-            <CardTitle>{campsite.name}</CardTitle>
+            {/* <CardImg top src={campsite.image} alt={campsite.name} /> */}
+            {/* <CardTitle>{campsite.name}</CardTitle> */}
             <CardText>{campsite.description}</CardText>
           </CardBody>
         </Card>
@@ -41,17 +50,23 @@ const CampsiteInfoComponent = ({ campsite }) => {
   };
 
   return (
-    <div>
-      {campsite ? (
-        <div className="container">
-          <div className="row">
-            {renderCampsite(campsite)}
-            {renderComments(campsite.comments)}
-          </div>
+    <div className="container">
+      <div className="row">
+        <div className="col">
+          <Breadcrumb>
+            <BreadcrumbItem>
+              <Link to="/directory">Directory</Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem active>{campsite.name}</BreadcrumbItem>
+          </Breadcrumb>
+          <h2>{campsite.name}</h2>
+          <hr />
         </div>
-      ) : (
-        <div></div>
-      )}
+      </div>
+      <div className="row">
+        {RenderCampsite(campsite)}
+        {RenderComments(comments)}
+      </div>
     </div>
   );
 };

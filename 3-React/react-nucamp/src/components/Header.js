@@ -12,6 +12,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function Header() {
   const [isNavOpen, setisNavOpen] = useState(false);
+
   const toggleNav = () => {
     setisNavOpen(!isNavOpen);
   };
@@ -28,6 +29,7 @@ export default function Header() {
           </div>
         </div>
       </Jumbotron>
+
       <Navbar dark sticky="top">
         <div className="container">
           <NavbarBrand className="mr-auto" href="/">
