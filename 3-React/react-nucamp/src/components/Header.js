@@ -18,7 +18,7 @@ export default function Header() {
 
   return (
     <>
-      <Jumbotron fluid>
+      <Jumbotron fluid className="mb-0">
         <div className="container">
           <div className="row">
             <div className="col">
