@@ -1,20 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, createRef } from 'react';
 import {
-  Nav,
   Navbar,
   NavbarBrand,
+  Nav,
   NavbarToggler,
   Collapse,
   NavItem,
   Jumbotron,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  Form,
+  FormGroup,
+  Input,
+  Label,
 } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
 export default function Header() {
   const [isNavOpen, setisNavOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleNav = () => {
     setisNavOpen(!isNavOpen);
+  };
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+  const FormComponent = () => {
+    const usernameRef = useRef();
+    const passwordRef = useRef();
+    const checkbox = useRef();
+    const handleLogin = (e) => {
+      e.preventDefault();
+      alert(
+        `Username: ${usernameRef.current.value} Password: ${passwordRef.current.value} Remember ${checkbox.current.checked}`
+      );
+
+      toggleModal();
+    };
+    return (
+      <Form onSubmit={handleLogin}>
+        <FormGroup>
+          <Label htmlFor="username">Username</Label>
+          <Input
+            type="text"
+            id="username"
+            name="username"
+            innerRef={usernameRef}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="password">Password</Label>
+          <Input
+            type="password"
+            id="password"
+            name="password"
+            innerRef={passwordRef}
+          />
+        </FormGroup>
+        <FormGroup check>
+          <Label check>
+            <Input type="checkbox" name="remember" innerRef={checkbox} />
+            Remember me
+          </Label>
+        </FormGroup>
+        <Button type="submit" value="submit" color="primary">
+          Login
+        </Button>
+      </Form>
+    );
   };
 
   return (
@@ -64,9 +119,20 @@ export default function Header() {
                 </NavLink>
               </NavItem>
             </Nav>
+            <span className="navbar-text ml-auto">
+              <Button outline onClick={toggleModal}>
+                <i className="fa fa-sign-in fa-lg" /> Login
+              </Button>
+            </span>
           </Collapse>
         </div>
       </Navbar>
+      <Modal isOpen={isModalOpen} toggle={toggleModal}>
+        <ModalHeader toggle={toggleModal}>Login</ModalHeader>
+        <ModalBody>
+          <FormComponent />
+        </ModalBody>
+      </Modal>
     </>
   );
 }
