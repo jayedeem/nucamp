@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 import FormComponent from './FormComponent';
 import NavbarComponent from './NavbarComponent';
