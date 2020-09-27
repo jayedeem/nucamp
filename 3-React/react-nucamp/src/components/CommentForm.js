@@ -15,7 +15,7 @@ class CommentForm extends Component {
     this.state = {
       author: '',
       rating: 1,
-      comment: '',
+      text: '',
       touched: {
         author: false,
       },
@@ -46,7 +46,7 @@ class CommentForm extends Component {
       this.props.campsiteId,
       values.rating,
       values.author,
-      values.comment
+      values.text
     );
   }
 
@@ -100,12 +100,12 @@ class CommentForm extends Component {
         </div>
 
         <div className="form-group">
-          <Label htmlFor="comment">Your Comment</Label>
+          <Label htmlFor="text">Your Comment</Label>
 
           <Control.textarea
-            model=".comment"
-            id="comment"
-            name="comment"
+            model=".text"
+            id="text"
+            name="text"
             rows="6"
             className="form-control"
           />

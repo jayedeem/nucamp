@@ -31,6 +31,7 @@ const CampsiteInfoComponent = ({ campsite, comments, addComment }) => {
           comments={comments}
           addComment={addComment}
           campsite={campsite}
+          campsiteId={campsite.id}
           toggleModal={toggleModal}
           isModalOpen={isModalOpen}
         />
