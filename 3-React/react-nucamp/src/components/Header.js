@@ -22,7 +22,11 @@ export default function Header() {
         toggleModal={toggleModal}
         toggleNav={toggleNav}
       />
-      <ModalComponent isModalOpen={isModalOpen} toggleModal={toggleModal}>
+      <ModalComponent
+        isModalOpen={isModalOpen}
+        toggleModal={toggleModal}
+        headerText={'Login'}
+      >
         <FormComponent toggleModal={toggleModal} />
       </ModalComponent>
     </>
