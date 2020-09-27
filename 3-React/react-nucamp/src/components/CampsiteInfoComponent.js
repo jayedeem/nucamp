@@ -7,16 +7,18 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   Button,
+  CardImg,
+  CardTitle,
 } from 'reactstrap';
 import ModalComponent from './ModalComponent';
 import CommentForm from './CommentForm';
 
-const CampsiteInfoComponent = ({ campsite, comments }) => {
+const CampsiteInfoComponent = ({ campsite, comments, addComment }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-  const RenderComments = (comments) => {
+  const RenderComments = ({ comments, addComment, campsiteId }) => {
     if (comments) {
       return (
         <div className="col-md-5 m-1">
@@ -38,6 +40,13 @@ const CampsiteInfoComponent = ({ campsite, comments }) => {
             <i className="fa fa-pencil fa-lg" />
             Submit Comment
           </Button>
+          <ModalComponent
+            isModalOpen={isModalOpen}
+            toggleModal={toggleModal}
+            headerText={'Submit Comment'}
+          >
+            <CommentForm campsiteId={campsiteId} addComment={addComment} />
+          </ModalComponent>
         </div>
       );
     }
@@ -49,8 +58,8 @@ const CampsiteInfoComponent = ({ campsite, comments }) => {
       <div className="col-md-5 m-1">
         <Card>
           <CardBody>
-            {/* <CardImg top src={campsite.image} alt={campsite.name} /> */}
-            {/* <CardTitle>{campsite.name}</CardTitle> */}
+            <CardImg top src={campsite.image} alt={campsite.name} />
+            <CardTitle>{campsite.name}</CardTitle>
             <CardText>{campsite.description}</CardText>
           </CardBody>
         </Card>
@@ -73,16 +82,13 @@ const CampsiteInfoComponent = ({ campsite, comments }) => {
         </div>
       </div>
       <div className="row">
-        {RenderCampsite(campsite)}
-        {RenderComments(comments)}
+        <RenderCampsite campsite={campsite} />
+        <RenderComments
+          comments={comments}
+          addComment={addComment}
+          campsiteId={campsite.id}
+        />
       </div>
-      <ModalComponent
-        isModalOpen={isModalOpen}
-        toggleModal={toggleModal}
-        headerText={'Submit Comment'}
-      >
-        <CommentForm />
-      </ModalComponent>
     </div>
   );
 };

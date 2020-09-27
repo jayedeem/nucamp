@@ -7,7 +7,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Home from './Home';
 import Contact from './Contact';
-
+import { addComment } from '../redux/ActionCreators';
 import CampsiteInfoComponent from './CampsiteInfoComponent';
 import About from './AboutComponent';
 
@@ -19,7 +19,10 @@ const mapStateToProps = (state) => {
     promotions: state.promotions,
   };
 };
-
+const mapDispatchToProps = {
+  addComment: (campsiteId, rating, author, text) =>
+    addComment(campsiteId, rating, author, text),
+};
 class Main extends Component {
   render() {
     const HomePage = () => {
@@ -47,6 +50,7 @@ class Main extends Component {
           comments={this.props.comments.filter(
             (comment) => comment.campsiteId === +match.params.campsiteId
           )}
+          addComment={this.props.addComment}
         />
       );
     };
@@ -76,4 +80,4 @@ class Main extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
