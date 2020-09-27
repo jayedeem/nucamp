@@ -23,22 +23,12 @@ const mapDispatchToProps = {
   addComment: (campsiteId, rating, author, text) =>
     addComment(campsiteId, rating, author, text),
 };
-class Main extends Component {
-  render() {
-    const HomePage = () => {
-      return (
-        <Home
-          campsite={
-            this.props.campsites.filter((campsite) => campsite.featured)[0]
-          }
-          promotion={
-            this.props.promotions.filter((promotion) => promotion.featured)[0]
-          }
-          partner={this.props.partners.filter((partner) => partner.featured)[0]}
-        />
-      );
-    };
 
+class Main extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
     const CampsiteWithId = ({ match }) => {
       return (
         <CampsiteInfoComponent
@@ -51,6 +41,19 @@ class Main extends Component {
             (comment) => comment.campsiteId === +match.params.campsiteId
           )}
           addComment={this.props.addComment}
+        />
+      );
+    };
+    const HomePage = () => {
+      return (
+        <Home
+          campsite={
+            this.props.campsites.filter((campsite) => campsite.featured)[0]
+          }
+          promotion={
+            this.props.promotions.filter((promotion) => promotion.featured)[0]
+          }
+          partner={this.props.partners.filter((partner) => partner.featured)[0]}
         />
       );
     };

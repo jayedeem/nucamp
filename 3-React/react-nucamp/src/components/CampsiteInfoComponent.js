@@ -1,71 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Card,
-  CardBody,
-  CardText,
-  Breadcrumb,
-  BreadcrumbItem,
-  Button,
-  CardImg,
-  CardTitle,
-} from 'reactstrap';
-import ModalComponent from './ModalComponent';
-import CommentForm from './CommentForm';
+import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+
+import Comments from './RenderComments';
+import Campsite from './RenderCampsite';
 
 const CampsiteInfoComponent = ({ campsite, comments, addComment }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
-
-  const RenderComments = ({ comments, addComment, campsiteId }) => {
-    if (comments) {
-      return (
-        <div className="col-md-5 m-1">
-          <h4>Comments</h4>
-          {comments.map((comment) => (
-            <div key={comment.id}>
-              <p>
-                {comment.text} <br />
-                -- {comment.author},{' '}
-                {new Intl.DateTimeFormat('en-US', {
-                  year: 'numeric',
-                  month: 'short',
-                  day: '2-digit',
-                }).format(new Date(Date.parse(comment.date)))}
-              </p>
-            </div>
-          ))}
-          <Button outline onClick={toggleModal}>
-            <i className="fa fa-pencil fa-lg" />
-            Submit Comment
-          </Button>
-          <ModalComponent
-            isModalOpen={isModalOpen}
-            toggleModal={toggleModal}
-            headerText={'Submit Comment'}
-          >
-            <CommentForm campsiteId={campsiteId} addComment={addComment} />
-          </ModalComponent>
-        </div>
-      );
-    }
-    return <div></div>;
-  };
-
-  const RenderCampsite = (campsite) => {
-    return (
-      <div className="col-md-5 m-1">
-        <Card>
-          <CardBody>
-            <CardImg top src={campsite.image} alt={campsite.name} />
-            <CardTitle>{campsite.name}</CardTitle>
-            <CardText>{campsite.description}</CardText>
-          </CardBody>
-        </Card>
-      </div>
-    );
-  };
+  console.log(campsite);
 
   return (
     <div className="container">
@@ -82,11 +26,13 @@ const CampsiteInfoComponent = ({ campsite, comments, addComment }) => {
         </div>
       </div>
       <div className="row">
-        <RenderCampsite campsite={campsite} />
-        <RenderComments
+        <Campsite campsite={campsite} />
+        <Comments
           comments={comments}
           addComment={addComment}
-          campsiteId={campsite.id}
+          campsite={campsite}
+          toggleModal={toggleModal}
+          isModalOpen={isModalOpen}
         />
       </div>
     </div>
