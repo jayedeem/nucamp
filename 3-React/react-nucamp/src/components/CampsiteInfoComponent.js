@@ -1,16 +1,21 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Card,
   CardBody,
-  CardImg,
   CardText,
-  CardTitle,
   Breadcrumb,
   BreadcrumbItem,
+  Button,
 } from 'reactstrap';
+import ModalComponent from './ModalComponent';
+import CommentForm from './CommentForm';
 
 const CampsiteInfoComponent = ({ campsite, comments }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
+
   const RenderComments = (comments) => {
     if (comments) {
       return (
@@ -29,6 +34,10 @@ const CampsiteInfoComponent = ({ campsite, comments }) => {
               </p>
             </div>
           ))}
+          <Button outline onClick={toggleModal}>
+            <i className="fa fa-pencil fa-lg" />
+            Submit Comment
+          </Button>
         </div>
       );
     }
@@ -67,6 +76,13 @@ const CampsiteInfoComponent = ({ campsite, comments }) => {
         {RenderCampsite(campsite)}
         {RenderComments(comments)}
       </div>
+      <ModalComponent
+        isModalOpen={isModalOpen}
+        toggleModal={toggleModal}
+        headerText={'Submit Comment'}
+      >
+        <CommentForm />
+      </ModalComponent>
     </div>
   );
 };
