@@ -1,43 +1,69 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
-
+import { Loading } from './LoadingComponent';
 import Comments from './RenderComments';
 import Campsite from './RenderCampsite';
 
-const CampsiteInfoComponent = ({ campsite, comments, addComment }) => {
+const CampsiteInfoComponent = ({
+  campsite,
+  comments,
+  addComment,
+  isLoading,
+  errMess,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
-  console.log(campsite);
-
-  return (
-    <div className="container">
-      <div className="row">
-        <div className="col">
-          <Breadcrumb>
-            <BreadcrumbItem>
-              <Link to="/directory">Directory</Link>
-            </BreadcrumbItem>
-            <BreadcrumbItem active>{campsite.name}</BreadcrumbItem>
-          </Breadcrumb>
-          <h2>{campsite.name}</h2>
-          <hr />
+  if (isLoading) {
+    return (
+      <div className="container">
+        <div className="row">
+          <Loading />
         </div>
       </div>
-      <div className="row">
-        <Campsite campsite={campsite} />
-        <Comments
-          comments={comments}
-          addComment={addComment}
-          campsite={campsite}
-          campsiteId={campsite.id}
-          toggleModal={toggleModal}
-          isModalOpen={isModalOpen}
-        />
+    );
+  }
+  if (errMess) {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <h4>{errMess}</h4>
+          </div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+  if (campsite) {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <Breadcrumb>
+              <BreadcrumbItem>
+                <Link to="/directory">Directory</Link>
+              </BreadcrumbItem>
+              <BreadcrumbItem active>{campsite.name}</BreadcrumbItem>
+            </Breadcrumb>
+            <h2>{campsite.name}</h2>
+            <hr />
+          </div>
+        </div>
+        <div className="row">
+          <Campsite campsite={campsite} />
+          <Comments
+            comments={comments}
+            addComment={addComment}
+            campsite={campsite}
+            campsiteId={campsite.id}
+            toggleModal={toggleModal}
+            isModalOpen={isModalOpen}
+          />
+        </div>
+      </div>
+    );
+  }
 };
 
 // class CampsiteInfoComponent extends Component {

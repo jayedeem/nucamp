@@ -8,6 +8,7 @@ import {
   BreadcrumbItem,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
 
 function RenderDirectoryItem({ campsite }) {
   return (
@@ -23,14 +24,33 @@ function RenderDirectoryItem({ campsite }) {
 }
 
 function Directory({ campsites }) {
-  const directory = campsites.map((campsite) => {
+  const directory = campsites.campsites.map((campsite) => {
     return (
       <div key={campsite.id} className="col-md-5 m-1">
         <RenderDirectoryItem campsite={campsite} />
       </div>
     );
   });
-
+  if (campsites.isLoading) {
+    return (
+      <div className="container">
+        <div className="row">
+          <Loading />
+        </div>
+      </div>
+    );
+  }
+  if (campsites.errMess) {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <h4>{campsites.errMess}</h4>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="container">
       <div className="row">
@@ -50,33 +70,4 @@ function Directory({ campsites }) {
   );
 }
 
-// class DirectoryComponent extends Component {
-//   oncampSiteSelect(campsite) {
-//     this.setState({
-//       selectedCampSites: campsite,
-//     });
-//   }
-
-//   render() {
-//     const { campsites, onClick } = this.props;
-
-//     const directory = campsites.map((campsite) => {
-//       return (
-//         <div className="col-md-5 m-1" key={campsite.id}>
-//           <Card onClick={() => onClick(campsite.id)}>
-//             <CardImg width="100%" src={campsite.image} alt={campsite.name} />
-//             <CardImgOverlay>
-//               <CardTitle>{campsite.name}</CardTitle>
-//             </CardImgOverlay>
-//           </Card>
-//         </div>
-//       );
-//     });
-//     return (
-//       <div className="container">
-//         <div className="row">{directory}</div>
-//       </div>
-//     );
-//   }
-// }
 export default Directory;
