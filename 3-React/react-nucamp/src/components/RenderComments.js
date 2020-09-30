@@ -5,7 +5,7 @@ import { Button } from 'reactstrap';
 
 const Comments = ({
   comments,
-  addComment,
+  postComment,
   campsiteId,
   toggleModal,
   isModalOpen,
@@ -36,7 +36,7 @@ const Comments = ({
           toggleModal={toggleModal}
           headerText={'Submit Comment'}
         >
-          <CommentForm campsiteId={campsiteId} addComment={addComment} />
+          <CommentForm campsiteId={campsiteId} postComment={postComment} />
         </ModalComponent>
       </div>
     );

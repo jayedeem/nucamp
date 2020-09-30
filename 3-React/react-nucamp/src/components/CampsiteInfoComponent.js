@@ -8,9 +8,10 @@ import Campsite from './RenderCampsite';
 const CampsiteInfoComponent = ({
   campsite,
   comments,
-  addComment,
+  postComment,
   isLoading,
   errMess,
+  campsiteId,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -54,7 +55,7 @@ const CampsiteInfoComponent = ({
           <Campsite campsite={campsite} />
           <Comments
             comments={comments}
-            addComment={addComment}
+            postComment={postComment}
             campsite={campsite}
             campsiteId={campsite.id}
             toggleModal={toggleModal}
