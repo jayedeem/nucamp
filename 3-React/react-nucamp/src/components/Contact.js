@@ -1,6 +1,6 @@
 import React, { useState, Component } from 'react';
 import { Link } from 'react-router-dom';
-
+// import { fadeIn } from 'react-animations';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -21,7 +21,7 @@ const validEmail = (val) =>
 class Contact extends Component {
   constructor(props) {
     super(props);
-
+    console.log('Contact', props);
     this.state = {
       firstName: '',
       lastName: '',
@@ -59,8 +59,9 @@ class Contact extends Component {
   }
 
   handleSubmit(values) {
-    console.log('Current state is: ' + JSON.stringify(values));
-    alert('Current state is: ' + JSON.stringify(values));
+    // console.log('Current state is: ' + JSON.stringify(values));
+    // alert('Current state is: ' + JSON.stringify(values));
+    this.props.postFeedback(values);
     this.props.resetFeedbackForm();
   }
 

@@ -7,29 +7,13 @@ import {
   CardHeader,
   Media,
 } from 'reactstrap';
+import { Loading } from './LoadingComponent';
+import RenderPartner from './RenderPartner';
 import { Link } from 'react-router-dom';
 
-const RenderPartner = ({ partner }) => {
-  if (partner) {
-    return (
-      <>
-        <Media
-          width="150"
-          object="true"
-          src={partner.image}
-          alt={partner.name}
-        />
-        <Media body="true" className="ml-5 mb-4">
-          <Media heading="true">{partner.name}</Media>
-          {partner.description}
-        </Media>
-      </>
-    );
-  }
-};
-
 function About({ partners }) {
-  const Partners = partners.map((partner) => {
+  console.log('About', partners);
+  const Partners = partners.partners.map((partner) => {
     return (
       <Media tag="li" key={partner.id}>
         <RenderPartner partner={partner} />
@@ -37,6 +21,26 @@ function About({ partners }) {
     );
   });
 
+  if (partners.isLoading) {
+    return (
+      <div className="container">
+        <div className="row">
+          <Loading />
+        </div>
+      </div>
+    );
+  }
+  if (partners.errMess) {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <h4>{partners.errMess}</h4>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="container">
       <div className="row">

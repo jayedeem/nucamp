@@ -15,7 +15,7 @@ function RenderCard({ item, isLoading, errMess }) {
     <FadeTransform
       in
       transformProps={{
-        exitTransform: 'scale(0.5) translateY(50%)',
+        exitTransform: 'scale(2) translateY(80%)',
       }}
     >
       <Card>
@@ -28,7 +28,9 @@ function RenderCard({ item, isLoading, errMess }) {
     </FadeTransform>
   );
 }
+
 export default function Home(props) {
+  console.log('home', props);
   return (
     <div className="container">
       <div className="row">
@@ -47,7 +49,11 @@ export default function Home(props) {
           />
         </div>
         <div className="col-md m-1">
-          <RenderCard item={props.partner} />
+          <RenderCard
+            item={props.partner}
+            isLoading={props.partnersLoading}
+            errMess={props.partnersErrMess}
+          />
         </div>
       </div>
     </div>

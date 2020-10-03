@@ -104,3 +104,78 @@ export const postComment = (campsiteId, rating, author, text) => (dispatch) => {
       alert('Your comment could not be posted\nError: ' + error.message);
     });
 };
+export const fetchPartners = () => (dispatch) => {
+  dispatch(partnersLoading());
+
+  return fetch(baseUrl + 'partners')
+    .then((response) => response.json())
+    .then((partners) => dispatch(addPartners(partners)));
+};
+
+export const partnersLoading = () => ({
+  type: ActionTypes.PARTNERS_LOADING,
+});
+
+export const partnersFailed = (errMess) => ({
+  type: ActionTypes.PARTNERS_FAILED,
+  payload: errMess,
+});
+
+export const addPartners = (partner) => ({
+  type: ActionTypes.ADD_PARTNERS,
+  payload: partner,
+});
+// I am stuck here
+export const postFeedback = (
+  firstName,
+  lastName,
+  phoneNum,
+  email,
+  agree,
+  contactType,
+  feedback
+) => (dispatch) => {
+  const newFeedback = {
+    firstName,
+    lastName,
+    phoneNum,
+    email,
+    agree,
+    contactType,
+    feedback,
+  };
+  console.log('newFeedback', newFeedback);
+
+  return fetch(baseUrl + 'feedback', {
+    method: 'POST',
+    body: JSON.stringify(newFeedback),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          const error = new Error(
+            `Error ${response.status}: ${response.statusText}`
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        throw error;
+      }
+    )
+    .then((response) => response.json())
+    .then((data) =>
+      alert('Thank you for your feedback: ' + JSON.stringify(data))
+    )
+
+    .catch((error) => {
+      console.log('post feedback', error.message);
+      alert('Your feeback could not be posted\nError: ' + error.message);
+    });
+};

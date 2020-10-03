@@ -12,6 +12,8 @@ import {
   fetchCampsites,
   fetchComments,
   fetchPromotions,
+  fetchPartners,
+  postFeedback,
 } from '../redux/ActionCreators';
 import CampsiteInfoComponent from './CampsiteInfoComponent';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -30,8 +32,29 @@ const mapDispatchToProps = {
   resetFeedbackForm: () => actions.reset('feedbackForm'),
   fetchComments: () => fetchComments(),
   fetchPromotions: () => fetchPromotions(),
+  fetchPartners: () => fetchPartners(),
   postComment: (campsiteId, rating, author, text) =>
     postComment(campsiteId, rating, author, text),
+  postFeedback: (
+    feedbackId,
+    firstName,
+    lastName,
+    phoneNum,
+    email,
+    agree,
+    contactType,
+    feeback
+  ) =>
+    postFeedback(
+      feedbackId,
+      firstName,
+      lastName,
+      phoneNum,
+      email,
+      agree,
+      contactType,
+      feeback
+    ),
 };
 
 class Main extends Component {
@@ -42,6 +65,7 @@ class Main extends Component {
     this.props.fetchCampsites();
     this.props.fetchComments();
     this.props.fetchPromotions();
+    this.props.fetchPartners();
   }
   render() {
     const HomePage = () => {
@@ -59,9 +83,15 @@ class Main extends Component {
               (promotion) => promotion.featured
             )[0]
           }
-          partner={this.props.partners.filter((partner) => partner.featured)[0]}
           promotionLoading={this.props.promotions.isLoading}
           promotionErrMess={this.props.promotions.errMess}
+          partner={
+            this.props.partners.partners.filter(
+              (partner) => partner.featured
+            )[0]
+          }
+          partnersLoading={this.props.partners.isLoading}
+          partnersErrMess={this.props.partners.errMess}
         />
       );
     };
@@ -105,7 +135,10 @@ class Main extends Component {
                 exact
                 path="/contactus"
                 render={() => (
-                  <Contact resetFeedbackForm={this.props.resetFeedbackForm} />
+                  <Contact
+                    resetFeedbackForm={this.props.resetFeedbackForm}
+                    postFeedback={this.props.postFeedback}
+                  />
                 )}
               />
               <Route
