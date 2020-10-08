@@ -7,40 +7,48 @@ import {
   CardHeader,
   Media,
 } from 'reactstrap';
+import { Fade, Stagger } from 'react-animation-components';
 import { Loading } from './LoadingComponent';
 import RenderPartner from './RenderPartner';
 import { Link } from 'react-router-dom';
 
 function About({ partners }) {
-  console.log('About', partners);
   const Partners = partners.partners.map((partner) => {
     return (
-      <Media tag="li" key={partner.id}>
-        <RenderPartner partner={partner} />
-      </Media>
+      <Fade in key={partner.id}>
+        <Media tag="li">
+          <RenderPartner partner={partner} />
+        </Media>
+      </Fade>
     );
   });
 
-  if (partners.isLoading) {
+  const PartnerList = ({ partners }) => {
     return (
-      <div className="container">
-        <div className="row">
-          <Loading />
-        </div>
-      </div>
-    );
-  }
-  if (partners.errMess) {
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <h4>{partners.errMess}</h4>
+      <div className="col mt-4">
+        {partners.isLoading ? (
+          <div className="container">
+            <div className="row">
+              <Loading />
+            </div>
           </div>
-        </div>
+        ) : null}
+        {partners.errMess ? (
+          <div className="container">
+            <div className="row">
+              <div className="col">
+                <h4>{partners.errMess}</h4>
+              </div>
+            </div>
+          </div>
+        ) : null}
+        <Media list>
+          <Stagger in>{Partners}</Stagger>
+        </Media>
       </div>
     );
-  }
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -110,9 +118,7 @@ function About({ partners }) {
         <div className="col-12">
           <h3>Community Partners</h3>
         </div>
-        <div className="col mt-4">
-          <Media list>{Partners}</Media>
-        </div>
+        <PartnerList partners={partners} />
       </div>
     </div>
   );

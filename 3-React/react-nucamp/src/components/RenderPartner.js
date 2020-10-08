@@ -1,7 +1,7 @@
 import React from 'react';
 import { baseUrl } from '../shared/baseUrl';
 import { Media } from 'reactstrap';
-import { Loading } from './LoadingComponent';
+import { Stagger } from 'react-animation-components';
 const RenderPartner = ({ partner }) => {
   return (
     <>

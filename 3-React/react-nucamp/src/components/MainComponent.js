@@ -35,26 +35,7 @@ const mapDispatchToProps = {
   fetchPartners: () => fetchPartners(),
   postComment: (campsiteId, rating, author, text) =>
     postComment(campsiteId, rating, author, text),
-  postFeedback: (
-    feedbackId,
-    firstName,
-    lastName,
-    phoneNum,
-    email,
-    agree,
-    contactType,
-    feeback
-  ) =>
-    postFeedback(
-      feedbackId,
-      firstName,
-      lastName,
-      phoneNum,
-      email,
-      agree,
-      contactType,
-      feeback
-    ),
+  postFeedback: (feedback) => postFeedback(feedback),
 };
 
 class Main extends Component {

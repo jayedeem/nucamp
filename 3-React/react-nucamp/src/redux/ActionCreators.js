@@ -125,30 +125,12 @@ export const addPartners = (partner) => ({
   type: ActionTypes.ADD_PARTNERS,
   payload: partner,
 });
-// I am stuck here
-export const postFeedback = (
-  firstName,
-  lastName,
-  phoneNum,
-  email,
-  agree,
-  contactType,
-  feedback
-) => (dispatch) => {
-  const newFeedback = {
-    firstName,
-    lastName,
-    phoneNum,
-    email,
-    agree,
-    contactType,
-    feedback,
-  };
-  console.log('newFeedback', newFeedback);
 
+// !I am stuck here, the shape is off!!
+export const postFeedback = (feedback) => () => {
   return fetch(baseUrl + 'feedback', {
     method: 'POST',
-    body: JSON.stringify(newFeedback),
+    body: JSON.stringify(feedback),
     headers: {
       'Content-Type': 'application/json',
     },
@@ -171,7 +153,7 @@ export const postFeedback = (
     )
     .then((response) => response.json())
     .then((data) =>
-      alert('Thank you for your feedback: ' + JSON.stringify(data))
+      alert(`Thank you for your feedback:  ${JSON.stringify(data)}`)
     )
 
     .catch((error) => {
